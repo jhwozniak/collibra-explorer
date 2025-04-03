@@ -24,6 +24,16 @@ Zooming in shows the asset types within a domain:
 Back to the top-right corner, you can click on a photo icon and capture the whole operating model:
 ![Capture](./images/capture.png)
 
+### How it is implemented?
+The project is implemented in Python and uses the following libraries:
+- `requests` for making HTTP requests to the Collibra API
+- `json` for handling JSON data
+- `plotly` for creating interactive visualizations
+- `dotenv` for loading environment variables from a `.env` file
+- `logging` for basic logging
+
+First, we make a REST API call to `/rest/2.0/domains` endpoint and build a set of unique domain types available in your instance. Then, for each of these domain types we make another call to `rest/2.0/assignments/domain/{domain_id}/assetTypes` to get the asset types assigned to that domain. The result is a dictionary with domain types as keys and a list of asset types as values. In the same loop you collect asset colors to later use them in visualisation. Finally, you transform this Python dictionary into data frame so that plotly can visualise it as a treemap. 
+
 ## Prerequisites
 
 - Python 3.6+
